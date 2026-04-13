@@ -28,6 +28,8 @@ FHIRLessons/
 | 01 | [Resources and Encounters](lessons/01-resources-and-encounters.md) | What FHIR Resources are, the common resource types, and a deep dive into Encounters |
 | 02 | [FHIR Servers and APIs](lessons/02-fhir-servers-and-apis.md) | What a FHIR server gives you out of the box, and all the server options available |
 | 03 | [FHIR Security and SMART](lessons/03-fhir-security-and-smart.md) | Why our server has no auth, SMART on FHIR, OAuth scopes, and production security layers |
+| 04 | [Create Patient (US Core)](lessons/04-create-patient-us-core.md) | Patient resource deep dive, every field explained, US Core profile, extensions, and migration mapping |
+| 05 | [Update Patient Demographics](lessons/05-update-patient-demographics.md) | PUT vs PATCH, versioning, _history, CodeableConcept pattern, maritalStatus |
 
 ## Prerequisites
 

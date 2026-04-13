@@ -24,7 +24,13 @@ services:
       spring.jpa.properties.hibernate.dialect: org.hibernate.dialect.PostgreSQLDialect
       hapi.fhir.fhir_version: R4
       hapi.fhir.allow_multiple_delete: "true"
-      hapi.fhir.validation.requests_enabled: "true"
+      hapi.fhir.validation.requests_enabled: "false"
+      hapi.fhir.implementationguides.uscore.url: "https://packages.simplifier.net/hl7.fhir.us.core/6.1.0"
+      hapi.fhir.implementationguides.uscore.name: "hl7.fhir.us.core"
+      hapi.fhir.implementationguides.uscore.version: "6.1.0"
+      hapi.fhir.implementationguides.cdcrec.url: "https://packages.simplifier.net/hl7.terminology.r4/6.2.0"
+      hapi.fhir.implementationguides.cdcrec.name: "hl7.terminology.r4"
+      hapi.fhir.implementationguides.cdcrec.version: "6.2.0"
     depends_on:
       - fhir-db
 
