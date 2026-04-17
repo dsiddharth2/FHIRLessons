@@ -1,0 +1,8 @@
+<Solution>
+  <Folder Name="/src/">
+    <Project Path="src/FhirLearning.Services/FhirLearning.Services.csproj" />
+  </Folder>
+  <Folder Name="/tests/">
+    <Project Path="tests/FhirLearning.Tests/FhirLearning.Tests.csproj" />
+  </Folder>
+</Solution>

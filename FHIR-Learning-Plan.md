@@ -651,6 +651,129 @@ clinical data graph from any direction.
 
 ---
 
+## Step 8: Load the US Core Implementation Guide in the FHIR Server
+
+### What you're doing
+Loading the US Core Implementation Guide (IG) package into the HAPI FHIR server so that
+the server knows about US Core profiles, value sets, and validation rules.
+
+### Why
+Without the IG loaded, the server accepts any JSON that looks like FHIR — it can't validate
+that a Patient actually conforms to US Core. Loading the IG gives the server the
+StructureDefinitions, CodeSystems, and ValueSets it needs to enforce US Core constraints.
+
+---
+
+## Step 9: Validate All Resources Against the US Core Implementation Guide
+
+### What you're doing
+Configuring the FHIR server to validate incoming resources against US Core profiles, and
+testing validation by submitting both valid and invalid resources.
+
+### Why
+In production, you want the server to reject resources that don't meet US Core requirements.
+This ensures data quality at the point of entry — catching missing required fields,
+incorrect code systems, or missing extensions before data lands in the database.
+
+---
+
+## Step 10: Add a Patient Reported Outcome Questionnaire
+
+### What you're doing
+Creating a Questionnaire resource titled "PRoM Test Questionnaire" — a structured form
+for capturing Patient Reported Outcome Measures (PROMs).
+
+### Why
+PROMs are standardized surveys that patients fill out to report their own health status,
+symptoms, and quality of life. In FHIR, the **Questionnaire** resource defines the form
+structure (questions, answer types, validation rules), while **QuestionnaireResponse**
+captures the patient's actual answers.
+
+---
+
+## Step 11: Add a QuestionnaireResponse for the PROM Questionnaire
+
+### What you're doing
+Creating a QuestionnaireResponse that captures Patient/1's answers to the PRoM Test
+Questionnaire from Step 10.
+
+### Why
+The Questionnaire defines the form; the QuestionnaireResponse records what the patient
+actually answered. This separation lets you reuse the same questionnaire across many
+patients while keeping each patient's responses as a distinct resource linked to their
+record.
+
+---
+
+## Step 12: Add a PlanDefinition with a Survey Activity
+
+### What you're doing
+Creating a PlanDefinition that defines a care protocol with one activity: the patient
+must complete a survey (the PRoM Questionnaire) within a given time period.
+
+### Why
+A **PlanDefinition** is a reusable clinical protocol or guideline — it describes *what
+should happen* without being tied to a specific patient. Think of it as a template for
+care plans. By defining the survey activity here, you can later apply it to any patient
+to generate a personalized CarePlan.
+
+---
+
+## Step 13: Apply the PlanDefinition and Validate the CarePlan
+
+### What you're doing
+Running the `$apply` operation on the PlanDefinition for Patient/1 to auto-generate a
+CarePlan, then validating that the generated CarePlan is correct and complete.
+
+### Why
+The `$apply` operation is how FHIR turns a generic protocol (PlanDefinition) into a
+patient-specific plan (CarePlan). This is a key workflow in clinical decision support —
+the server takes the template, fills in patient-specific details, and produces actionable
+tasks. Validating the output ensures the generated plan is structurally sound.
+
+---
+
+## Step 14: Display a Schedule of Activities from the CarePlan
+
+### What you're doing
+Using the generated CarePlan to display a schedule of activities for the patient —
+showing what needs to be done, when, and the current status of each activity.
+
+### Why
+A CarePlan is only useful if it drives action. This step closes the loop from protocol
+definition to patient-facing schedule. In a real application, this is what a patient
+portal or clinician dashboard would display.
+
+---
+
+## Step 15: Explore Bundle Transactions
+
+### What you're doing
+Creating and submitting FHIR Bundle resources of type `transaction` to perform multiple
+operations (create, update, delete) in a single atomic request.
+
+### Why
+In real-world integrations, you rarely send one resource at a time. Bundle transactions
+let you submit a batch of interdependent resources atomically — either all succeed or all
+fail. This is essential for data migrations, system integrations, and any workflow where
+resources reference each other (e.g., creating a Patient and Encounter together).
+
+---
+
+## Step 16: Explore FHIR Bulk Operations
+
+### What you're doing
+Using FHIR Bulk Data Access (the `$export` operation) to export large volumes of data
+from the server in NDJSON format.
+
+### Why
+Bulk operations are how FHIR handles population-level data exchange — exporting all
+patients, all conditions, or all data for a specific group. This is critical for
+analytics, reporting, data warehousing, and large-scale migrations where resource-by-resource
+REST calls would be too slow.
+
+---
+
 ## Next Steps After Completing This Plan
 
 1. **Try searching** — use the queries above to retrieve data in different ways
