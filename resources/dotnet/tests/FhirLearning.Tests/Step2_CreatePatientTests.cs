@@ -68,6 +68,9 @@ public class Step2_CreatePatientTests : IClassFixture<FhirServerFixture>
     [Fact]
     public async Task GetAllPatients_ReturnsBundleWithEntries()
     {
+        await _patientService.CreateUsCorePatientAsync(
+            "ListTest", "Pat", AdministrativeGender.Other, "2000-01-01", $"MRN-{Guid.NewGuid():N}");
+
         var bundle = await _patientService.GetAllPatientsAsync(count: 50);
 
         Assert.NotNull(bundle);

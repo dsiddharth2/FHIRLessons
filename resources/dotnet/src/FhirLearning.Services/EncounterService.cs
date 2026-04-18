@@ -21,6 +21,11 @@ public class EncounterService
     {
         var encounter = new Encounter
         {
+            Text = new Narrative
+            {
+                Status = Narrative.NarrativeStatus.Generated,
+                Div = $"<div xmlns=\"http://www.w3.org/1999/xhtml\">Ambulatory encounter for Patient/{patientId}: {reasonDisplay} ({start:yyyy-MM-dd})</div>"
+            },
             Status = Encounter.EncounterStatus.Finished,
             Class = new Coding("http://terminology.hl7.org/CodeSystem/v3-ActCode", "AMB", "ambulatory"),
             Type =

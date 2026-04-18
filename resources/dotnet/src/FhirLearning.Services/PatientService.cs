@@ -21,6 +21,11 @@ public class PatientService
     {
         var patient = new Patient
         {
+            Text = new Narrative
+            {
+                Status = Narrative.NarrativeStatus.Generated,
+                Div = $"<div xmlns=\"http://www.w3.org/1999/xhtml\">{given} {family}, {gender}, DOB: {birthDate}</div>"
+            },
             Meta = new Meta
             {
                 Profile = ["http://hl7.org/fhir/us/core/StructureDefinition/us-core-patient"]
@@ -40,19 +45,9 @@ public class PatientService
             BirthDate = birthDate
         };
 
-        // US Core race extension
-        var raceExtension = new Extension { Url = "http://hl7.org/fhir/us/core/StructureDefinition/us-core-race" };
-        raceExtension.Extension.Add(new Extension("ombCategory",
-            (DataType)new Coding("urn:oid:2.16.840.1.113883.6.238", "2106-3", "White")));
-        raceExtension.Extension.Add(new Extension("text", (DataType)new FhirString("White")));
-        patient.Extension.Add(raceExtension);
-
-        // US Core ethnicity extension
-        var ethnicityExtension = new Extension { Url = "http://hl7.org/fhir/us/core/StructureDefinition/us-core-ethnicity" };
-        ethnicityExtension.Extension.Add(new Extension("ombCategory",
-            (DataType)new Coding("urn:oid:2.16.840.1.113883.6.238", "2186-5", "Not Hispanic or Latino")));
-        ethnicityExtension.Extension.Add(new Extension("text", (DataType)new FhirString("Not Hispanic or Latino")));
-        patient.Extension.Add(ethnicityExtension);
+        // Race and ethnicity extensions are SHOULD (not required) in US Core.
+        // They require NLM VSAC terminology access for validation, which isn't
+        // available locally. In production, configure HAPI with VSAC credentials.
 
         return await _client.CreateAsync(patient);
     }

@@ -22,6 +22,11 @@ public class ProcedureService
     {
         var procedure = new Procedure
         {
+            Text = new Narrative
+            {
+                Status = Narrative.NarrativeStatus.Generated,
+                Div = $"<div xmlns=\"http://www.w3.org/1999/xhtml\">{snomedDisplay} for Patient/{patientId} on {performedDateTime:yyyy-MM-dd}</div>"
+            },
             Status = EventStatus.Completed,
             Code = new CodeableConcept("http://snomed.info/sct", snomedCode, snomedDisplay),
             Subject = new ResourceReference($"Patient/{patientId}"),

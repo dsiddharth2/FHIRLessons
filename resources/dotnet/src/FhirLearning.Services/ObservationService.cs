@@ -21,6 +21,11 @@ public class ObservationService
     {
         var observation = new Observation
         {
+            Text = new Narrative
+            {
+                Status = Narrative.NarrativeStatus.Generated,
+                Div = $"<div xmlns=\"http://www.w3.org/1999/xhtml\">Blood pressure {systolic}/{diastolic} mmHg for Patient/{patientId}</div>"
+            },
             Status = ObservationStatus.Final,
             Category =
             [

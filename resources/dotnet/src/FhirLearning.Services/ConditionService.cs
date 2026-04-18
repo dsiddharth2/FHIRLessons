@@ -23,6 +23,11 @@ public class ConditionService
     {
         var condition = new Condition
         {
+            Text = new Narrative
+            {
+                Status = Narrative.NarrativeStatus.Generated,
+                Div = $"<div xmlns=\"http://www.w3.org/1999/xhtml\">{snomedDisplay} (ICD-10: {icd10Code}) for Patient/{patientId}, onset {onsetDate}</div>"
+            },
             ClinicalStatus = new CodeableConcept(
                 "http://terminology.hl7.org/CodeSystem/condition-clinical", "active", "Active"),
             VerificationStatus = new CodeableConcept(
