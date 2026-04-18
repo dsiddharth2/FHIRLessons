@@ -1,23 +1,28 @@
 # FHIR Lessons
 
 Hands-on lessons for learning HL7 FHIR (Fast Healthcare Interoperability Resources) — from
-spinning up a local server to creating, linking, and validating clinical resources.
+spinning up a local server to creating, linking, and validating clinical resources,
+building care plans, and working with bulk data operations.
 
 ## What's Inside
 
 ```
 FHIRLessons/
 ├── FHIR-Learning-Plan.md                 # Full 16-step execution plan
-├── lessons/                              # Deep-dive lesson files
+├── lessons/                              # 18 deep-dive lesson files
 │   ├── README.md                         # Lesson index with progress tracking
-│   ├── 01 - 05                           # Foundations (server, patients, demographics)
+│   ├── 01 - 03                           # Foundations (server, APIs, security)
+│   ├── 04 - 05                           # Patient (create, update demographics)
 │   ├── 06 - 09                           # Clinical resources (encounters, observations, conditions, procedures)
-│   └── 10 - 11                           # Implementation guides & validation
+│   ├── 10 - 11                           # Implementation guides & validation
+│   ├── 12 - 13                           # Questionnaires & patient-reported outcomes
+│   ├── 14 - 16                           # Care planning (PlanDefinition, CarePlan, lifecycle)
+│   └── 17 - 18                           # Data operations (bundles, bulk export)
 └── resources/
     ├── docker-compose.yml                # HAPI FHIR server + Postgres + US Core IG
     └── dotnet/                           # .NET Firely SDK project
-        ├── src/FhirLearning.Services/    # 9 service classes (Patient, Encounter, Observation, etc.)
-        └── tests/FhirLearning.Tests/     # 59 tests across 9 test files (Steps 1-9)
+        ├── src/FhirLearning.Services/    # 16 service classes
+        └── tests/FhirLearning.Tests/     # 156 tests across 16 test files (Steps 1-16)
 ```
 
 ## Getting Started
@@ -57,6 +62,13 @@ FHIRLessons/
 | 09 | [Procedures Deep Dive](lessons/09-procedures-deep-dive.md) | Procedures, performed[x], reasonReference, CPT, complications |
 | 10 | [Implementation Guides](lessons/10-implementation-guides.md) | US Core IG, StructureDefinitions, ValueSets, STORE_AND_INSTALL |
 | 11 | [Validation Against US Core](lessons/11-validation-against-us-core.md) | $validate, OperationOutcome, terminology services, VSAC |
+| 12 | [Questionnaires (PROM)](lessons/12-questionnaires-prom.md) | Questionnaire resource, item types, answer options, PROMs |
+| 13 | [QuestionnaireResponse](lessons/13-questionnaire-response.md) | Capturing patient answers, linkId matching, answer types |
+| 14 | [PlanDefinition & ActivityDefinition](lessons/14-plan-definition.md) | Care protocols, actions, ActivityDefinition kinds, timing |
+| 15 | [CarePlan — $apply](lessons/15-careplan-apply.md) | Patient-specific plans from templates, activity mapping |
+| 16 | [Activity Schedule & Lifecycle](lessons/16-activity-schedule.md) | Status updates, workflow simulation, plan completion |
+| 17 | [Bundle Transactions](lessons/17-bundle-transactions.md) | Atomic multi-resource operations, urn:uuid references, batch |
+| 18 | [Bulk Data Export](lessons/18-bulk-export.md) | $export concept, $everything, paginated search, NDJSON |
 
 See [lessons/README.md](lessons/README.md) for full progress tracking, .NET services, and test details.
 
